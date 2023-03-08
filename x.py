@@ -15,7 +15,10 @@ file_list_column = [
     sg.Listbox(
       values=[], enable_events=True, size=(40, 20), key="-FILE LIST-"
     )
-  ],
+  ], 
+  [
+    sg.Button("OK")
+  ]
 ]
 
 # For now will only show the name of the file that was chosen
