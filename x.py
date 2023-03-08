@@ -8,7 +8,7 @@ import os.path
 file_list_column = [
   [
     sg.Text("Image Folder"),
-    sg.In(size=(25, 1), enable_events=True, key="-FOLDER-"),
+    sg.In(size=(15, 2), enable_events=True, key="-FOLDER-"),
     sg.FolderBrowse(),
   ],
   [
