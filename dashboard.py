@@ -29,8 +29,22 @@ BPAD_LEFT = ((20,10), (0, 10))
 BPAD_LEFT_INSIDE = (0, 10)
 BPAD_RIGHT = ((10,20), (10, 20))
 
-top_banner = [[sg.Text('Dashboard'+ ' '*64, font='Any 20', background_color=DARK_HEADER_COLOR),
-               sg.Text('Tuesday 9 June 2020', font='Any 20', background_color=DARK_HEADER_COLOR)]]
+top_banner = [
+  [
+    sg.Text(
+      'Dashboard' + ' '*64, 
+      font='Any 20', 
+      text_color='blue', 
+      background_color=DARK_HEADER_COLOR
+    ),
+    sg.Text(
+      'Tuesday 9 June 2020', 
+      font='Any 20', 
+      text_color='yellow', 
+      background_color=DARK_HEADER_COLOR
+    )
+  ]
+]
 
 top  = [[sg.Text('The Weather Will Go Here', size=(50,1), justification='c', pad=BPAD_TOP, font='Any 20')],
             [sg.T(f'{i*25}-{i*34}') for i in range(7)],]
