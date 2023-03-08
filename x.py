@@ -1,5 +1,5 @@
+#!/usr/bin/python
 # img_viewer.py
-
 import PySimpleGUI as sg
 import os.path
 
