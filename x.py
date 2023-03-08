@@ -17,7 +17,7 @@ file_list_column = [
     )
   ], 
   [
-    sg.Button("OK")
+    sg.Button("Exit")
   ]
 ]
 
