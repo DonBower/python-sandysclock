@@ -49,8 +49,8 @@ time_block = [
     sg.Text(
       '20:20', 
       font='Digital-7',
-      text_color='yellow',
-      auto_size_text=True
+      size=48,
+      text_color='yellow'
     )
   ],
 ]
