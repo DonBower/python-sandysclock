@@ -124,47 +124,47 @@ layout = [
             size=(350,200), 
             pad=BPAD_LEFT_INSIDE
           )
-        ],
-        [
-          [
-            sg.Column(
-              am_block, 
-              size=(100,100),
-              pad=BPAD_LEFT_INSIDE
-            )
-          ],
-          [
-            sg.Column(
-              pm_block, 
-              size=(100,100),
-              pad=BPAD_LEFT_INSIDE
-            )
-          ]
-        ],
-        [
-          [
-            sg.Column(
-              current_temp_block, 
-              size=(250,100), 
-              pad=BPAD_LEFT_INSIDE
-            )
-          ],
-          [
-            [
-              sg.Column(
-                low_temp_block, 
-                size=(125,100),
-                pad=BPAD_LEFT_INSIDE
-              )
-            ],
-            [
-              sg.Column(
-                high_temp_block, 
-                size=(125,100),
-                pad=BPAD_LEFT_INSIDE
-              )
-            ]
-          ]
+        ]
+        # [
+        #   [
+        #     sg.Column(
+        #       am_block, 
+        #       size=(100,100),
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ],
+        #   [
+        #     sg.Column(
+        #       pm_block, 
+        #       size=(100,100),
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ]
+        # ],
+        # [
+        #   [
+        #     sg.Column(
+        #       current_temp_block, 
+        #       size=(250,100), 
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ],
+        #   [
+        #     [
+        #       sg.Column(
+        #         low_temp_block, 
+        #         size=(125,100),
+        #         pad=BPAD_LEFT_INSIDE
+        #       )
+        #     ],
+        #     [
+        #       sg.Column(
+        #         high_temp_block, 
+        #         size=(125,100),
+        #         pad=BPAD_LEFT_INSIDE
+        #       )
+        #     ]
+        #   ]
         ]
       ], 
       pad=BPAD_LEFT, 
