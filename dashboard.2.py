@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
 import PySimpleGUI as sg
 from datetime import datetime
@@ -39,9 +39,6 @@ date_banner = [
       datetime.today().strftime('%A, %B %d %Y'),
       font='Any 20',
       text_color='yellow',
-      # size=50, 
-      # pad=(20,20),
-      justification='center',
       background_color=DARK_HEADER_COLOR
     )
   ]
@@ -51,12 +48,11 @@ time_block = [
   [
     sg.Text(
       '20:20', 
-      font='Digital-7',
+      font='Any 20',
       size=48,
-      justification='center',
       text_color='yellow',
       background_color=DARK_HEADER_COLOR
-    ),
+    )
   ],
 ]
 
@@ -64,9 +60,7 @@ am_block = [
   [
     sg.Text(
       'AM',
-      font='Any 20',
-      justification='center',
-      text_color='yellow',
+      font='Any 20'
     )
   ],
 ]
@@ -113,55 +107,79 @@ exit_block = [
   ]
 ]
 
-row1=  [
-    sg.Text(
-      datetime.today().strftime('%A, %B %d %Y'),
-      font='Any 20',
-      text_color='yellow',
-      size=50, 
-      pad=(20,20),
-      justification='center',
-      background_color=DARK_HEADER_COLOR
-    )
-  ]
 
-row2 = [
-  [
-    sg.Column(
-      time_block,
-      size=(350, 200),
-      pad=(0,0),
-      justification='center',
-      background_color=DARK_HEADER_COLOR
-    )
-  ],
-  [
-    sg.Column(
-    am_block,
-    size=(100, 100),
-    pad=(0,0),
-    )
-  ],
-  [
-    sg.Column(
-      current_temp_block,
-      size=(250, 100),
-      pad=(0,0),
-    )
-  ]
-]
-row3 = [
-  sg.Column(
-    exit_block,
-    size=(50, 35),
-    pad=(20,0),
-  )    
-]
 
 layout = [
-  row1,
-  row2,
-  row3
+  [
+    sg.Column(
+      date_banner, 
+      size=(700, 75), 
+      pad=(20,50), 
+      element_justification='center',
+      background_color=DARK_HEADER_COLOR
+    )
+  ],
+  [
+    sg.Column(
+      [
+        [
+          sg.Column(
+            time_block, 
+            size=(350,200), 
+            pad=BPAD_LEFT_INSIDE
+          )
+        ]
+        # [
+        #   [
+        #     sg.Column(
+        #       am_block, 
+        #       size=(100,100),
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ],
+        #   [
+        #     sg.Column(
+        #       pm_block, 
+        #       size=(100,100),
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ]
+        # ],
+        # [
+        #   [
+        #     sg.Column(
+        #       current_temp_block, 
+        #       size=(250,100), 
+        #       pad=BPAD_LEFT_INSIDE
+        #     )
+        #   ],
+        #   [
+        #     [
+        #       sg.Column(
+        #         low_temp_block, 
+        #         size=(125,100),
+        #         pad=BPAD_LEFT_INSIDE
+        #       )
+        #     ],
+        #     [
+        #       sg.Column(
+        #         high_temp_block, 
+        #         size=(125,100),
+        #         pad=BPAD_LEFT_INSIDE
+        #       )
+        #     ]
+        #   ]
+        # ]
+      ], 
+      pad=BPAD_LEFT, 
+      background_color=BORDER_COLOR
+    ),
+    sg.Column(
+      exit_block,
+      size=(50, 50),
+      pad=BPAD_RIGHT
+    )
+  ]
 ]
 
 window = sg.Window(
@@ -171,9 +189,9 @@ window = sg.Window(
   # auto_size_buttons = True,
   location = (0,0),
   size = (800,480),
-  margins=(0,0), 
+  margins=(10,10), 
   background_color=BORDER_COLOR, 
-  no_titlebar=False, 
+  no_titlebar=True, 
   grab_anywhere=True
 )
 
