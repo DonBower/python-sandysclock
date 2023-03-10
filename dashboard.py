@@ -165,7 +165,7 @@ layout = [
         #       )
         #     ]
         #   ]
-        ]
+        # ]
       ], 
       pad=BPAD_LEFT, 
       background_color=BORDER_COLOR
