@@ -36,9 +36,9 @@ BPAD_RIGHT = ((10,20), (10, 20))
 date_banner = [
   [
     sg.Text(
-      datetime.today().strftime('%A, %B %d %Y'), 
-      font='Any 20', 
-      text_color='yellow', 
+      datetime.today().strftime('%A, %B %d %Y'),
+      font='Any 20',
+      text_color='yellow',
       background_color=DARK_HEADER_COLOR
     )
   ]
@@ -48,7 +48,9 @@ time_block = [
   [
     sg.Text(
       '20:20', 
-      font='Digital-7'
+      font='Digital-7',
+      text_color='yellow',
+      auto_size_text=True
     )
   ],
 ]
