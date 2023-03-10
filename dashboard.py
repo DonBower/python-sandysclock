@@ -48,7 +48,7 @@ time_block = [
   [
     sg.Text(
       '20:20', 
-      font='Digital'
+      font='Digital-7'
     )
   ],
 ]
