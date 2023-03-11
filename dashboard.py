@@ -53,7 +53,7 @@ time_block = [
       '20:20', 
       font='Digital-7',
       size=48,
-      justification='center',
+      # justification='center',
       text_color='yellow',
       background_color=DARK_HEADER_COLOR
     ),
@@ -65,7 +65,7 @@ am_block = [
     sg.Text(
       'AM',
       font='Any 20',
-      justification='center',
+      # justification='center',
       text_color='yellow',
     )
   ],
@@ -74,8 +74,9 @@ am_block = [
 pm_block = [
   [
     sg.Text(
-      'AM',
-      font='Any 20'
+      'PM',
+      font='Any 20',
+      text_color='yellow',
     )
   ],
 ]
@@ -122,33 +123,34 @@ row1=  [
       pad=(20,20),
       justification='center',
       background_color=DARK_HEADER_COLOR
-    )
+    ),
   ]
 
 row2 = [
-  [
+    [      
+      sg.Column(
+        time_block,
+        size=(350, 200),
+        pad=(20,0),
+        
+        background_color=DARK_HEADER_COLOR
+      ),
+      sg.Column(
+          am_block,
+          size=(100, 100),
+          pad=(0,0),
+      ),
+    ],
+      sg.Column(
+        current_temp_block,
+        size=(250, 100),
+        pad=(0,0),
+      ),
     sg.Column(
-      time_block,
-      size=(350, 200),
+      pm_block,
+      size=(100, 100),
       pad=(0,0),
-      justification='center',
-      background_color=DARK_HEADER_COLOR
-    )
-  ],
-  [
-    sg.Column(
-    am_block,
-    size=(100, 100),
-    pad=(0,0),
-    )
-  ],
-  [
-    sg.Column(
-      current_temp_block,
-      size=(250, 100),
-      pad=(0,0),
-    )
-  ]
+    ),
 ]
 row3 = [
   sg.Column(
