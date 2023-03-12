@@ -63,7 +63,7 @@ def setTimeText(currentTimeString):
   currentTime = sg.Text(
     currentTimeString,
     justification='center',
-    font=('Digital-7 Mono', 128),
+    font=('Digital-7 Mono', 96),
     text_color='#FFFB00',
     background_color='#0000FF',
     key='currentTime'
