@@ -10,6 +10,33 @@ def suffix(d):
 def custom_strftime(format, t):
     return t.strftime(format).replace('{S}', str(t.day) + suffix(t.day))
 
+def getCurrentTime():
+  global currentDayString, currentTimeString, amTextValue, pmTextValue
+
+  rightNow          = datetime.now()
+  currentDayString  = custom_strftime('%A, %B {S}, %Y', rightNow)
+  currentTimeString = rightNow.strftime('%I:%M')
+  currentTimeSet    = rightNow.strftime('%p')
+  if currentTimeSet == "PM":
+    amTextValue=""
+    pmTextValue="PM"
+  else:
+    amTextValue="AM"
+    pmTextValue="  "
+
+  setTimeFrame()
+
+def setTimeFrame():
+  global currentTime, currentDayString
+  currentTime = sg.Text(
+    currentTimeString,
+    justification='center',
+    font=('Digital-7 Mono', 144),
+    text_color='#FFFB00',
+    background_color='#0000FF'
+  )
+
+
 # print custom_strftime('%B {S}, %Y', dt.now())
 
 """
@@ -17,81 +44,227 @@ def custom_strftime(format, t):
 
     Copyright 2020 PySimpleGUI.org
 """
-
-
-theme_dict = {'BACKGROUND': '#2B475D',
-                'TEXT': '#FFFFFF',
-                'INPUT': '#F2EFE8',
-                'TEXT_INPUT': '#000000',
-                'SCROLL': '#F2EFE8',
-                'BUTTON': ('#000000', '#C2D4D8'),
-                'PROGRESS': ('#FFFFFF', '#C7D5E0'),
-                'BORDER': 1,'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0}
-
-# sg.theme_add_new('Dashboard', theme_dict)     # if using 4.20.0.1+
-sg.LOOK_AND_FEEL_TABLE['Dashboard'] = theme_dict
-sg.theme('Dashboard')
-
-BORDER_COLOR = '#C7D5E0'
-DARK_HEADER_COLOR = '#1B2838'
-BPAD_TOP = ((20,20), (20, 10))
-BPAD_LEFT = ((20,10), (0, 10))
-BPAD_LEFT_INSIDE = (0, 10)
-BPAD_RIGHT = ((10,20), (10, 20))
-
-rightNow = datetime.now()
-currentDayString = custom_strftime('%A, %B {S}, %Y', rightNow)
-currentDayString = "Wednesday, September 9th, 2023"
-currentDay = [[sg.Text(currentDayString, font=('Helvetica', 42), justification='c', background_color='#FF7F7F')]]
-
-currentTime  = [[sg.Text(rightNow.strftime('%I:%M'), justification='c', pad=BPAD_TOP, font=('Digital-7', 144))],]
-
-currentTimeSet = rightNow.strftime('%p')
-if currentTimeSet == "PM":
-  amText="AM"
-  pmText="PM"
-else:
-  amText="AM"
-  pmText="PM"
-    
-exitButton = [[sg.Button('Exit')]]
-
-
-temp = [
-  [sg.Text('103º',    font=('Helvetica',54))],
-  [sg.Text('Current', font=('Helvetica',18))],
-]
-lowTemp = [
-  [sg.Text('100º',  font=('Helvetica',36))],
-  [sg.Text('Low',   font=('Helvetica',12))],
-]
-highTemp = [
-  [sg.Text('110º',  font=('Helvetica',36))],
-  [sg.Text('high',  font=('Helvetica',12))],
-]
-
-am_pm = [
-  [
-    sg.Text(amText, font=('Helvetica',48))
-  ],
-  [
-    sg.Text(pmText, font=('Helvetica',48))
-  ]
-]
-
-
-layout = [
-  [sg.Column(currentDay, size=(700, 75), pad=(0,0), background_color='#FF7F7F')],
-  [sg.Column(currentTime, size=(350, 200), pad=(0,0)),sg.Column(am_pm, size=(100, 200), pad=(0,0)),sg.Column(temp, size=(250, 100), pad=(0,0)),],
-  [sg.Column(lowTemp, size=(100, 100), pad=(0,0)),sg.Column(highTemp, size=(100, 100), pad=(0,0)),],
-  [sg.Column([[sg.Column(exitButton, size=(75,25),  pad=(0,0))]], pad=(0,0), background_color=BORDER_COLOR),]
-]
-
-window = sg.Window('Dashboard PySimpleGUI-Style', layout, margins=(0,0), background_color=BORDER_COLOR, no_titlebar=True, grab_anywhere=True)
-
 while True:             # Event Loop
-    
-    event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Exit':
-        break
+  getCurrentTime()
+
+
+  theme_dict = {'BACKGROUND': '#2B475D',
+                  'TEXT': '#FFFFFF',
+                  'INPUT': '#F2EFE8',
+                  'TEXT_INPUT': '#000000',
+                  'SCROLL': '#F2EFE8',
+                  'BUTTON': ('#000000', '#C2D4D8'),
+                  'PROGRESS': ('#FFFFFF', '#C7D5E0'),
+                  'BORDER': 1,'SLIDER_DEPTH': 0, 'PROGRESS_DEPTH': 0}
+
+  # sg.theme_add_new('Dashboard', theme_dict)     # if using 4.20.0.1+
+  sg.LOOK_AND_FEEL_TABLE['Dashboard'] = theme_dict
+  sg.theme('Dashboard')
+
+  BORDER_COLOR = '#C7D5E0'
+  DARK_HEADER_COLOR = '#1B2838'
+  BPAD_TOP = ((20,20), (20, 10))
+  BPAD_LEFT = ((20,10), (0, 10))
+  BPAD_LEFT_INSIDE = (0, 10)
+  BPAD_RIGHT = ((10,20), (10, 20))
+
+  getCurrentTime()
+
+
+      
+  exitButton = [[sg.Button('Exit')]]
+
+  currentTempValue='104º'
+  lowTempValue='101º'
+  highTempValue='113º'
+
+  currentDay = sg.Text(
+    currentDayString,
+    font=('Helvetica', 42),
+    justification='center',
+    text_color='#000000',
+    background_color='#FF7F7F'
+  )
+
+
+  currentTemp = sg.Text(
+    currentTempValue,
+    font=('Helvetica',54),
+    text_color='#000000', 
+    background_color='#00FF00'
+  )
+
+  lowTemp = sg.Text(
+    lowTempValue,
+    font=('Helvetica',36),
+    text_color='#000000', 
+    background_color='#00FF00'
+  )
+
+  highTemp = sg.Text(
+    highTempValue,
+    font=('Helvetica',36),
+    text_color='#000000', 
+    background_color='#00FF00'
+  )
+
+
+  amText = sg.Text(
+    amTextValue,
+    font=('Helvetica',48),
+    text_color='#FFFB00', 
+    background_color='#0000FF',
+  )
+
+  pmText = sg.Text(
+    pmTextValue,
+    font=('Helvetica',48),
+    text_color='#FFFB00', 
+    background_color='#0000FF',
+  )
+
+  amPMLayout = [
+    [
+      sg.Frame(
+        layout=[
+          [
+            amText
+          ],
+        ],
+        title=None,
+        title_color='#0000FF',
+        background_color='#0000FF',
+        size=(100,100),
+        element_justification='center',
+        vertical_alignment='center',
+        border_width=None,
+        pad=(0,0)
+      ),
+    ],
+    [
+      sg.Frame(
+        layout=[
+          [
+            pmText
+          ],
+        ], 
+        title=None, 
+        title_color='#0000FF', 
+        background_color='#0000FF', 
+        size=(100,100),
+        element_justification='center', 
+        vertical_alignment='center', 
+        border_width=None,
+        pad=(0,0)
+      ),
+    ]
+  ]
+
+
+  column3 = sg.Frame(
+    layout=[
+    [
+      sg.Text('103º', font=('Helvetica',54), text_color='#000000', background_color='#FFFF7F')
+    ],
+    ], 
+    title='Current', 
+    size=(240,100), 
+    title_color='#0000FF', 
+    background_color='#FFFF7F', 
+    element_justification='center', 
+    vertical_alignment='center', 
+    border_width=None, 
+    pad=(0,0)
+  )
+
+  tempLayout = [
+    [
+      sg.Frame(
+        layout=[
+        [
+          currentTemp
+        ],
+      ], title='Current', size=(240,100), title_color='#0000FF', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+    ],
+    [
+      sg.Frame(layout=[
+        [
+          lowTemp
+        ],
+      ], title='low', size=(120,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      sg.Frame(layout=[
+        [
+          highTemp
+        ],
+      ], title='high', size=(120,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+    ],
+  ]
+
+  currentDayColumn = sg.Column(
+    [
+      [
+        currentDay
+      ]
+    ],
+    size=(700, 75),
+    pad=(0,0),
+    background_color='#FF7F7F',
+    justification='center',
+    vertical_alignment='center',
+  )
+
+  timeColumn = sg.Column(
+    [
+      [
+        currentTime
+      ]
+    ], 
+    size=(350, 200), 
+    pad=(0,0), 
+    background_color='#0000FF'
+  )
+  amPMColumn = sg.Column(
+    amPMLayout, 
+    size=(100, 200),
+    pad=(0,0),
+    background_color='#00007F'
+  )
+  tempColumn = sg.Column(
+    tempLayout, 
+    size=(250, 200), 
+    pad=(0,0), 
+    background_color='#00FF00'
+  ) 
+
+  row1 = [
+    currentDayColumn
+  ]
+
+  row2 = [
+    [
+      timeColumn,
+      amPMColumn,
+      tempColumn,
+    ]
+  ]
+
+  row3 = [
+    [sg.Column([[sg.Column(exitButton, size=(75,25),  pad=(0,0))]], pad=(0,0), background_color=BORDER_COLOR),]
+  ]
+
+  layout = [
+    row1,
+    row2,
+    row3
+  ]
+
+
+  window = sg.Window('Dashboard PySimpleGUI-Style', layout, margins=(0,0), background_color=BORDER_COLOR, no_titlebar=True, grab_anywhere=True)
+
+
+  event, values = window.read(timeout=1000)
+  if event == sg.WIN_CLOSED or event == 'Exit':
+    break
+
+
 window.close()
