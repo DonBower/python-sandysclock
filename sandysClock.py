@@ -64,6 +64,7 @@ def setTimeText(currentTimeString):
     currentTimeString,
     justification='center',
     font=('Digital-7 Mono', 144),
+    size=(450, 200),
     text_color='#FFFB00',
     background_color='#0000FF',
     key='currentTime'
@@ -74,6 +75,7 @@ def setAMText(amTextValue):
   amText = sg.Text(
     amTextValue,
     font=('Helvetica',48),
+    size=(100, 100),
     text_color='#FFFB00', 
     background_color='#0000FF',
     key='amText'
@@ -84,6 +86,7 @@ def setPMText(pmTextValue):
   pmText = sg.Text(
     pmTextValue,
     font=('Helvetica',48),
+    size=(100, 100),
     text_color='#FFFB00', 
     background_color='#0000FF',
     key='pmText'
