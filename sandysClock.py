@@ -275,7 +275,15 @@ layout = [
 ]
 
 
-window = sg.Window('Dashboard PySimpleGUI-Style', layout, margins=(0,0), background_color=BORDER_COLOR, no_titlebar=True, grab_anywhere=True)
+window = sg.Window(
+  'Dashboard PySimpleGUI-Style',
+  layout,
+  size=(800,480),
+  margins=(0,0),
+  background_color=BORDER_COLOR,
+  no_titlebar=True,
+  grab_anywhere=False
+)
 
 
 while True:             # Event Loop

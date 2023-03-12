@@ -91,7 +91,7 @@ window = sg.Window(
   margins=(0,0),
   background_color=BORDER_COLOR,
   no_titlebar=True,
-  grab_anywhere=True
+  grab_anywhere=False
 )
 new_value = 1
 
@@ -101,9 +101,9 @@ while True:             # Event Loop
   window.refresh()
   event, values = window.read(timeout=1000,timeout_key = "__TIMEOUT__")
 
-  with open('window.element.list','w') as elemF:
-    elemF.write(str(window.element_list()))
-  window.save_to_disk('window.save')
+  # with open('window.element.list','w') as elemF:
+  #   elemF.write(str(window.element_list()))
+  # window.save_to_disk('window.save')
   # break
 
   new_value = new_value + 1  
