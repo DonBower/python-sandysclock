@@ -15,7 +15,7 @@ def getCurrentTime():
 
   rightNow          = datetime.now()
   currentDayString  = custom_strftime('%A, %B {S}, %Y', rightNow)
-  currentTimeString = rightNow.strftime('%I:%M')
+  currentTimeString = rightNow.strftime('%M:%S')
   currentTimeSet    = rightNow.strftime('%p')
   if currentTimeSet == "PM":
     amTextValue=""
@@ -44,9 +44,10 @@ def setTimeFrame():
 
     Copyright 2020 PySimpleGUI.org
 """
+
 while True:             # Event Loop
   getCurrentTime()
-
+  
 
   theme_dict = {'BACKGROUND': '#2B475D',
                   'TEXT': '#FFFFFF',
@@ -168,7 +169,7 @@ while True:             # Event Loop
     ],
     ], 
     title='Current', 
-    size=(240,100), 
+    size=(250,100), 
     title_color='#0000FF', 
     background_color='#FFFF7F', 
     element_justification='center', 
@@ -184,19 +185,19 @@ while True:             # Event Loop
         [
           currentTemp
         ],
-      ], title='Current', size=(240,100), title_color='#0000FF', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      ], title='Current', size=(250,100), title_color='#0000FF', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
     ],
     [
       sg.Frame(layout=[
         [
           lowTemp
         ],
-      ], title='low', size=(120,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      ], title='low', size=(125,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
       sg.Frame(layout=[
         [
           highTemp
         ],
-      ], title='high', size=(120,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      ], title='high', size=(125,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
     ],
   ]
 
@@ -206,7 +207,7 @@ while True:             # Event Loop
         currentDay
       ]
     ],
-    size=(700, 75),
+    size=(800, 75),
     pad=(0,0),
     background_color='#FF7F7F',
     justification='center',
@@ -219,7 +220,7 @@ while True:             # Event Loop
         currentTime
       ]
     ], 
-    size=(350, 200), 
+    size=(450, 200), 
     pad=(0,0), 
     background_color='#0000FF'
   )
@@ -251,6 +252,7 @@ while True:             # Event Loop
   row3 = [
     [sg.Column([[sg.Column(exitButton, size=(75,25),  pad=(0,0))]], pad=(0,0), background_color=BORDER_COLOR),]
   ]
+
 
   layout = [
     row1,
