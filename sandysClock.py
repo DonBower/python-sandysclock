@@ -14,7 +14,7 @@ from pathlib import Path
 # Constants
 #
 DEBUG                   = 0
-USER_HOME_PATH          = Path('~').expanduser()
+USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
