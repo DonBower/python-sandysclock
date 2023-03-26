@@ -1,0 +1,5 @@
+###### Requirements without Version Specifiers ######
+pysimplegui
+ambient_api @ https://github.com/avryhof/ambient_api/archive/refs/tags/1.5.2.zip
+
+###### Requirements with Version Specifiers ######
