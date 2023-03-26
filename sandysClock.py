@@ -13,14 +13,14 @@ from pathlib import Path
 #
 # Constants
 #
-DEBUG                   = 0
+DEBUG                   = 1
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
-with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-  WEATHERKIT_KEY        = f.read()
 GPS_LAT                 = 34.03139251897727
 GPS_LON                 = -117.41704704143667
+with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
+  WEATHERKIT_KEY        = f.read()
 WEATHERKIT_SERVICE_ID   = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
 WEATHERKIT_TEAM_ID      = "L7662C7KY6"
 WEATHERKIT_KID          = "LBV5W26ZRJ"  # key ID
