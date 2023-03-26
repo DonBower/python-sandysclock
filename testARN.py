@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 from ambient_api.ambientapi import AmbientAPI
 import time
 import json
