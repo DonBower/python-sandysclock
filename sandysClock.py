@@ -9,13 +9,15 @@ from datetime import datetime
 from dateutil import tz
 
 from ambient_api.ambientapi import AmbientAPI
+from pathlib import Path
 #
 # Constants
 #
 DEBUG                   = 0
+USER_HOME_PATH          = Path('~').expanduser()
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
-with open("/Users/don/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
+with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
   WEATHERKIT_KEY        = f.read()
 GPS_LAT                 = 34.03139251897727
 GPS_LON                 = -117.41704704143667
