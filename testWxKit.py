@@ -22,7 +22,7 @@ currentTime             = currentTime.astimezone(localTimeZone)
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
     WEATHERKIT_KEY = f.read()
 if DEBUG > 0:
-   print(WEATHERKIT_KEY)
+  print("myKey      = " + str(WEATHERKIT_KEY))
 
 # https://developer.apple.com/account/resources/identifiers/list/serviceId
 WEATHERKIT_SERVICE_ID = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
@@ -95,13 +95,14 @@ myURL=myFetch.url
 myHeaders=myFetch.headers
 myRedirect=myFetch.is_redirect
 myRequest=myFetch.request
-# print("myJSON     = " + str(myJSON))
-# print("myStatus   = " + str(myStatus))
-# print("myRedirect = " + str(myRedirect))
-# print("myURL      = " + str(myURL))
-# print("myRequest  = " + str(myRequest))
-# print("myHeaders  = " + str(myHeaders))
-# print("myHeaders  = " + str(myKey))
+if DEBUG > 0:
+  if myStatus != 200:
+    print("myJSON     = " + str(myJSON))
+  print("myStatus   = " + str(myStatus))
+  print("myRedirect = " + str(myRedirect))
+  print("myURL      = " + str(myURL))
+  print("myRequest  = " + str(myRequest))
+  print("myHeaders  = " + str(myHeaders))
 
 with open('wxKit.json','w') as jsonF:
   jsonF.write(json.dumps(myJSON,indent=2,default='str'))
