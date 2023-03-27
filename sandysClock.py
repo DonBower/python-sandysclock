@@ -264,6 +264,10 @@ def getWxKit(
   }
 
   token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
+  if DEBUG > 0:
+    print('token:')
+    print(token)
+    
   response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
  
   if DEBUG > 0:

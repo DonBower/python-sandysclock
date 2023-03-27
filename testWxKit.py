@@ -20,12 +20,11 @@ currentTime             = currentTime.astimezone(localTimeZone)
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-  myKey = f.read
-
-WEATHERKIT_KEY = myKey
+  WEATHERKIT_KEY = f.read
 
 if DEBUG > 0:
-  print("myKey      = " + str(WEATHERKIT_KEY))
+  print("WEATHERKIT_KEY = " + str(WEATHERKIT_KEY))
+  
 
 # https://developer.apple.com/account/resources/identifiers/list/serviceId
 WEATHERKIT_SERVICE_ID = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
@@ -77,7 +76,7 @@ def fetch_weatherkit(
     print()
     print("Payload:")
     print(json.dumps(token_payload,indent=2,default=str))
-  token = jwt.encode(token_payload, str(WEATHERKIT_KEY), headers=token_header, algorithm="ES256")
+  token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
 
   if DEBUG > 0:
     print()
