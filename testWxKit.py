@@ -20,7 +20,10 @@ currentTime             = currentTime.astimezone(localTimeZone)
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-    WEATHERKIT_KEY = f.read()
+  myKey = f.read
+
+WEATHERKIT_KEY = myKey
+
 if DEBUG > 0:
   print("myKey      = " + str(WEATHERKIT_KEY))
 
@@ -74,7 +77,7 @@ def fetch_weatherkit(
     print()
     print("Payload:")
     print(json.dumps(token_payload,indent=2,default=str))
-  token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
+  token = jwt.encode(token_payload, str(WEATHERKIT_KEY), headers=token_header, algorithm="ES256")
 
   if DEBUG > 0:
     print()
