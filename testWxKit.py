@@ -20,7 +20,9 @@ currentTime             = currentTime.astimezone(localTimeZone)
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-    myKey = f.read()
+    WEATHERKIT_KEY = f.read()
+if DEBUG > 0:
+   print(WEATHERKIT_KEY)
 
 # https://developer.apple.com/account/resources/identifiers/list/serviceId
 WEATHERKIT_SERVICE_ID = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
@@ -30,7 +32,6 @@ WEATHERKIT_TEAM_ID = "L7662C7KY6"
 
 # https://developer.apple.com/account/resources/authkeys/list
 WEATHERKIT_KID = "LBV5W26ZRJ"  # key ID
-WEATHERKIT_KEY = myKey
 
 WEATHERKIT_FULL_ID = f"{WEATHERKIT_TEAM_ID}.{WEATHERKIT_SERVICE_ID}"
 thisLat           = 34.03139251897727
@@ -67,19 +68,24 @@ def fetch_weatherkit(
     "typ": "JWT"
   }
 
-  # print("Header:")
-  # print(json.dumps(token_header,indent=2,default=str))
-  # print()
-  # print("Payload:")
-  # print(json.dumps(token_payload,indent=2,default=str))
+  if DEBUG > 0:
+    print("Header:")
+    print(json.dumps(token_header,indent=2,default=str))
+    print()
+    print("Payload:")
+    print(json.dumps(token_payload,indent=2,default=str))
   token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
 
-  # print()
-  # print(url)
-  # print()
-  # print(token)
+  if DEBUG > 0:
+    print()
+    print(url)
+    print()
+    print(token)
 
   response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
+  if DEBUG > 0:
+     print(response.status_code)
+
   return response
 
 myFetch=fetch_weatherkit()
