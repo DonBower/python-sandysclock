@@ -8,19 +8,18 @@ from dateutil import tz
 import jwt
 import requests
 import json
+from pathlib import Path
 
-from cryptography.hazmat.primitives.serialization import load_ssh_private_key
-from hashlib import sha1
-# myKey = load_ssh_private_key(open("~/.ssh/AuthKey_LBV5W26ZRJ.p8", "rb").read(), b"")
-
-now = int(time.time())
-zuluTimeZone = tz.gettz('UTC')
-localTimeZone = tz.gettz('America/Los_Angeles')
-currentTime = datetime.fromtimestamp(now)
-currentTime = currentTime.astimezone(localTimeZone)
+DEBUG                   = 1
+USER_HOME_PATH          = str(Path('~').expanduser())
+now                     = int(time.time())
+zuluTimeZone            = tz.gettz('UTC')
+localTimeZone           = tz.gettz('America/Los_Angeles')
+currentTime             = datetime.fromtimestamp(now)
+currentTime             = currentTime.astimezone(localTimeZone)
 
 
-with open("/Users/don/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
+with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
     myKey = f.read()
 
 # https://developer.apple.com/account/resources/identifiers/list/serviceId
