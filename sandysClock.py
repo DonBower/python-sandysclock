@@ -17,6 +17,10 @@ DEBUG                   = 0
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
+CLOCK_FONT_TIME_SIZE    = 192
+CLOCK_FONT_TIME_NAME    = 'Digital-7 Mono'
+CLOCK_FONT_TIME_SIZE    = 144
+CLOCK_FONT_TIME_NAME    = 'Helvetica'
 GPS_LAT                 = 34.03139251897727
 GPS_LON                 = -117.41704704143667
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
@@ -176,7 +180,7 @@ def setTimeText(currentTimeString):
   currentTime = sg.Text(
     currentTimeString,
     justification='center',
-    font=('Digital-7 Mono', 192),
+    font=(CLOCK_FONT_TIME_NAME, CLOCK_FONT_TIME_SIZE),
     text_color='#FFFB00',
     background_color='#0000FF',
     key='currentTime',
