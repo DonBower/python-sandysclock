@@ -10,16 +10,16 @@ import requests
 import json
 from pathlib import Path
 
-DEBUG                   = 1
+DEBUG                   = 0
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-  WEATHERKIT_KEY = str(f.read())
+  WEATHERKIT_KEY = f.read()
 
-if DEBUG > 0:
+if DEBUG > 1:
   print("WEATHERKIT_KEY = " + str(WEATHERKIT_KEY))
   
 WEATHERKIT_SERVICE_ID   = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
@@ -75,7 +75,7 @@ def fetch_weatherkit(
   # token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256").decode("utf-8")
   token = jwt.encode(token_payload, WEATHERKIT_KEY, "ES256", token_header)
 
-  if DEBUG > 0:
+  if DEBUG > 1:
     print()
     print('URL:')
     print(url)
@@ -83,7 +83,7 @@ def fetch_weatherkit(
     print('TOKEN:')
     print(token)
 
-  if DEBUG > 0:
+  if DEBUG > 1:
     print()
     print('CURL:')
     print('curl "' + url + '" --header ' + "'Authorization: " + f'Bearer {token}' + "'")
@@ -110,8 +110,9 @@ if DEBUG > 1:
   print("myRequest  = " + str(myRequest))
   print("myHeaders  = " + str(myHeaders))
 
-with open('wxKit.json','w') as jsonF:
-  jsonF.write(json.dumps(myJSON,indent=2,default='str'))
+if DEBUG > 0:
+  with open('wxKit.json','w') as jsonF:
+    jsonF.write(json.dumps(myJSON,indent=2,default='str'))
 
 forecastDaily = myJSON['forecastDaily']
 
