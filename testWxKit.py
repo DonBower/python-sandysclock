@@ -17,7 +17,7 @@ TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-  WEATHERKIT_KEY = f.read()
+  WEATHERKIT_KEY = str(f.read())
 
 if DEBUG > 0:
   print("WEATHERKIT_KEY = " + str(WEATHERKIT_KEY))
@@ -72,7 +72,8 @@ def fetch_weatherkit(
     print("Payload:")
     print(json.dumps(token_payload,indent=2,default=str))
 
-  token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
+  # token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256").decode("utf-8")
+  token = jwt.encode(token_payload, WEATHERKIT_KEY, "ES256", token_header)
 
   if DEBUG > 0:
     print()
