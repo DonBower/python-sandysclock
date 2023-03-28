@@ -12,40 +12,35 @@ from pathlib import Path
 
 DEBUG                   = 1
 USER_HOME_PATH          = str(Path('~').expanduser())
-now                     = int(time.time())
-zuluTimeZone            = tz.gettz('UTC')
-localTimeZone           = tz.gettz('America/Los_Angeles')
-currentTime             = datetime.fromtimestamp(now)
-currentTime             = currentTime.astimezone(localTimeZone)
+TZ_ZULU                 = tz.gettz('UTC')
+TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 
 
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
-  WEATHERKIT_KEY = f.read
+  WEATHERKIT_KEY = f.read()
 
 if DEBUG > 0:
   print("WEATHERKIT_KEY = " + str(WEATHERKIT_KEY))
   
+WEATHERKIT_SERVICE_ID   = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
+WEATHERKIT_TEAM_ID      = "L7662C7KY6"
+WEATHERKIT_KID          = "LBV5W26ZRJ"  # key ID
+WEATHERKIT_FULL_ID      = f"{WEATHERKIT_TEAM_ID}.{WEATHERKIT_SERVICE_ID}"
 
-# https://developer.apple.com/account/resources/identifiers/list/serviceId
-WEATHERKIT_SERVICE_ID = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
+GPS_LAT                 = 34.03139251897727
+GPS_LON                 = -117.41704704143667
 
-# https://developer.apple.com/account/  - click Membership in nav to get Team ID
-WEATHERKIT_TEAM_ID = "L7662C7KY6"
-
-# https://developer.apple.com/account/resources/authkeys/list
-WEATHERKIT_KID = "LBV5W26ZRJ"  # key ID
-
-WEATHERKIT_FULL_ID = f"{WEATHERKIT_TEAM_ID}.{WEATHERKIT_SERVICE_ID}"
-thisLat           = 34.03139251897727
-thisLon           = -117.41704704143667
+now                     = int(time.time())
+currentTime             = datetime.fromtimestamp(now)
+currentTime             = currentTime.astimezone(TZ_LOCAL)
 
 print()
 print(currentTime)
 
 def fetch_weatherkit(
     lang="en",
-    lat="34.031392",
-    lon="-117.41704",
+    lat=GPS_LAT,
+    lon=GPS_LON,
     country="US",
     timezone="US/Los_Angeles",
     # datasets = "currentWeather,forecastDaily,forecastHourly,forecastNextHour",
@@ -76,6 +71,7 @@ def fetch_weatherkit(
     print()
     print("Payload:")
     print(json.dumps(token_payload,indent=2,default=str))
+
   token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
 
   if DEBUG > 0:
@@ -85,9 +81,6 @@ def fetch_weatherkit(
     print(token)
 
   response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
-  if DEBUG > 0:
-     print(response.status_code)
-
   return response
 
 myFetch=fetch_weatherkit()
@@ -113,7 +106,7 @@ forecastDaily = myJSON['forecastDaily']
 
 for forecastDay in forecastDaily['days']:
   forecastTime = datetime.strptime(forecastDay['forecastStart'], '%Y-%m-%dT%H:%M:%SZ')
-  forecastTime = forecastTime.astimezone(localTimeZone)
+  forecastTime = forecastTime.astimezone(TZ_LOCAL)
   if forecastTime > currentTime:
      timeDifference = "ahead"
     #  print("ahead")

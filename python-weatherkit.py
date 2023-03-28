@@ -24,6 +24,7 @@ forecasts = wk_client.fetch(datasets, 39.5900, -104.726763, 'US', 'US/Mountain')
 
 # There is a convenience method for converting the forecast response object to JSON
 forecasts_json = forecasts.as_json()
+print(forecasts_json['forecast_daily'][0]['conditions'])
 
 with open('wxKitPython.json','w') as jsonF:
   jsonF.write(json.dumps(forecasts_json, indent=2, default='str'))
