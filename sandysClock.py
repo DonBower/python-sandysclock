@@ -13,7 +13,7 @@ from pathlib import Path
 #
 # Constants
 #
-DEBUG                   = 1
+DEBUG                   = 0
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
@@ -70,7 +70,7 @@ def getCurrentDate(rightNow):
   return currentDateString
 
 def getCurrentTime(rightNow):
-  currentTimeString = rightNow.strftime('%H:%M:%S')
+  currentTimeString = rightNow.strftime('%H:%M')
   return currentTimeString
 
 def getAMText(rightNow):
@@ -91,32 +91,32 @@ def getCurrentWx(AWN_DEVICE):
   global lastEpoch, wxInfo, wxKitForecastTime
   wxResponse    = requests.get("https://api.weather.gov/gridpoints/SGX/56,72/forecast")
   currentEpoch  = int(time.time())
-  if DEBUG > 0:
+  if DEBUG > 1:
     print(currentEpoch)
 
   currentTime   = datetime.fromtimestamp(currentEpoch)
   currentTime   = currentTime.astimezone(TZ_LOCAL)
-  if DEBUG > 0:
+  if DEBUG > 1:
     print(currentTime)
 
   if currentTime > wxKitForecastTime:
     wxKitInfo           = getWxKit()
     wxKitForecastTime   = datetime.strptime(wxKitInfo.json()['forecastDaily']['days'][0]['forecastEnd'], '%Y-%m-%dT%H:%M:%SZ')
     wxKitForecastTime   = wxKitForecastTime.astimezone(TZ_LOCAL)
-    if DEBUG > 0:
+    if DEBUG > 1:
       print(str(currentTime) + " is later than " + str(wxKitForecastTime))
   else:
-    if DEBUG > 0:
+    if DEBUG > 1:
       print("Next wxKit Retrival is: " + str(wxKitForecastTime))
 
   if int(lastEpoch + 600) < currentEpoch:
-    if DEBUG > 0:
+    if DEBUG > 1:
       print("we have time: " + str(lastEpoch + 600) + " < " + str(currentEpoch))
     wxInfo      = {}
     awnData     = AWN_DEVICE.get_data()
     lastEpoch   = currentEpoch
 
-    if DEBUG > 0:
+    if DEBUG > 1:
       print("awnData:")
       print(awnData)
       print()
@@ -124,7 +124,7 @@ def getCurrentWx(AWN_DEVICE):
         jsonF.write(json.dumps(awnData,indent=2,default='str'))
 
 
-    if DEBUG > 0:
+    if DEBUG > 1:
       wxJSON = wxResponse.json()
 
       with open('wxGov.json','w') as jsonF:
@@ -143,7 +143,7 @@ def getCurrentWx(AWN_DEVICE):
     wxInfo['rain']    = {}
     wxInfo['rain']['probability'] = 100
 
-    if DEBUG > 0:
+    if DEBUG > 1:
       print(wxInfo)
       with open('wxInfo.json','w') as jsonF:
         jsonF.write(json.dumps(wxInfo,indent=2,default='str'))
@@ -264,13 +264,13 @@ def getWxKit(
   }
 
   token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
-  if DEBUG > 0:
+  if DEBUG > 1:
     print('token:')
     print(token)
     
   response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
  
-  if DEBUG > 0:
+  if DEBUG > 1:
     with open('wxKit.json','w') as jsonF:
       jsonF.write(json.dumps(response.json(),indent=2,default='str'))
 
