@@ -19,7 +19,7 @@ TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
   WEATHERKIT_KEY = f.read()
 
-if DEBUG > 1:
+if DEBUG > 0:
   print("WEATHERKIT_KEY = " + str(WEATHERKIT_KEY))
   
 WEATHERKIT_SERVICE_ID   = "net.ag6hq.sandysclock"  # Create service like (use same ending): com.example.weatherkit-client
@@ -74,13 +74,17 @@ def fetch_weatherkit(
 
   token = jwt.encode(token_payload, WEATHERKIT_KEY, headers=token_header, algorithm="ES256")
 
-  if DEBUG > 1:
+  if DEBUG > 0:
     print()
+    print('URL:')
     print(url)
     print()
+    print('TOKEN:')
     print(token)
 
   if DEBUG > 0:
+    print()
+    print('CURL:')
     print('curl "' + url + '" --header ' + "'Authorization: " + f'Bearer {token}' + "'")
 
   response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
