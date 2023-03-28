@@ -80,10 +80,13 @@ def fetch_weatherkit(
     print()
     print(token)
 
-  response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
   if DEBUG > 0:
     print('curl "' + url + '" --header ' + "'Authorization: " + f'Bearer {token}' + "'")
-  
+
+  response = requests.get(url, headers={'Authorization': f'Bearer {token}'})
+  if response.status_code != 200:
+    print('Error retriving Apple WeatherKit REST API, Status: ' + str(response.status_code) + 'Reason: ' + str(response.json()['reason']))
+    exit()
   return response
 
 myFetch=fetch_weatherkit()
