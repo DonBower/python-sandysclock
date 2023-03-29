@@ -506,7 +506,7 @@ window = sg.Window(
 def setBrightness(thisSetting):
   if os.path.exists(DIM_BRIGHTNESS_FILE):
     with open(DIM_BRIGHTNESS_FILE, 'w') as f:
-      f.write(thisSetting)
+      f.write(str(thisSetting))
 
 
 while True:             # Event Loop
