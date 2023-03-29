@@ -67,6 +67,10 @@ def suffix(d):
 def custom_strftime(format, t):
     return t.strftime(format).replace('{S}', str(t.day) + suffix(t.day))
 
+def columnFixedSize(layout, size=(None, None), *args, **kwargs):
+  # An addition column is needed to wrap the column with the Sizers because the colors will not be set on the space the sizers take
+  return sg.Column([[sg.Column([[sg.Sizer(0,size[1]-1), sg.Column([[sg.Sizer(size[0]-2,0)]] + layout, *args, **kwargs, pad=(0,0))]], *args, **kwargs)]],pad=(0,0))
+
 def getRightNow():
     rightNow=datetime.now()
     return rightNow
@@ -299,6 +303,10 @@ wxInfo                = getCurrentWx(AWN_DEVICE)
 
 sg.LOOK_AND_FEEL_TABLE['Dashboard'] = theme_dict
 sg.theme('Dashboard')
+
+if DEBUG > 0:
+  print("Version Info: \n" + sg.main_get_debug_data())
+  # print(sg.sys.version)
 
 exitButton = [[sg.Button('Exit')]]
 
