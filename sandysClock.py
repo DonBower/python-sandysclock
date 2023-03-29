@@ -19,8 +19,10 @@ TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
 CLOCK_FONT_TIME_SIZE    = 192
 CLOCK_FONT_TIME_NAME    = 'Digital-7 Mono'
-CLOCK_FONT_TIME_SIZE    = 144
+CLOCK_FONT_TIME_SIZE    = 128
 CLOCK_FONT_TIME_NAME    = 'Helvetica'
+CLOCK_FONT_HOUR_SIZE    = 36
+CLOCK_FONT_HOUR_NAME    = 'Helvetica'
 GPS_LAT                 = 34.03139251897727
 GPS_LON                 = -117.41704704143667
 with open(USER_HOME_PATH + "/.ssh/AuthKey_LBV5W26ZRJ.p8", "r") as f:
@@ -92,7 +94,7 @@ def getPMText(rightNow):
   return pmTextValue
 
 def getCurrentWx(AWN_DEVICE):
-  global lastEpoch, wxInfo, wxKitForecastTime
+  global lastEpoch, wxInfo, wxKitInfo, wxKitForecastTime
   wxResponse    = requests.get("https://api.weather.gov/gridpoints/SGX/56,72/forecast")
   currentEpoch  = int(time.time())
   if DEBUG > 1:
@@ -182,7 +184,7 @@ def setTimeText(currentTimeString):
     justification='center',
     font=(CLOCK_FONT_TIME_NAME, CLOCK_FONT_TIME_SIZE),
     text_color='#FFFB00',
-    background_color='#0000FF',
+    background_color='#000000',
     key='currentTime',
   )
   return currentTime
@@ -190,7 +192,7 @@ def setTimeText(currentTimeString):
 def setAMText(amTextValue):
   amText = sg.Text(
     amTextValue,
-    font=('Helvetica',48),
+    font=(CLOCK_FONT_HOUR_NAME, CLOCK_FONT_HOUR_SIZE),
     size=(100, 100),
     text_color='#FFFB00', 
     background_color='#0000FF',
@@ -341,22 +343,51 @@ tempLayout = [
   [
     sg.Frame(
       layout=[
-      [
-        setCurrentTemp(getCurrentTemp(wxInfo))
+        [
+          setCurrentTemp(getCurrentTemp(wxInfo))
+        ],
       ],
-    ], title='Current', size=(250,100), title_color='#0000FF', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      title='Current', 
+      size=(250,100),
+      title_color='#0000FF',
+      background_color='#FFFF7F',
+      element_justification='center',
+      vertical_alignment='center',
+      border_width=None,
+      pad=(0,0)
+    ),
   ],
   [
-    sg.Frame(layout=[
-      [
-        setLowTemp(getLowTemp(wxInfo))
+    sg.Frame(
+      layout=[
+        [
+          setLowTemp(getLowTemp(wxInfo))
+        ],
       ],
-    ], title='low', size=(125,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
-    sg.Frame(layout=[
-      [
-        setHighTemp(getHighTemp(wxInfo))
+      title='low',
+      size=(125,100),
+      title_color='#000000',
+      background_color='#FFFF7F',
+      element_justification='center',
+      vertical_alignment='center',
+      border_width=None,
+      pad=(0,0)
+    ),
+    sg.Frame(
+      layout=[
+        [
+          setHighTemp(getHighTemp(wxInfo))
+        ],
       ],
-    ], title='high', size=(125,100), title_color='#000000', background_color='#FFFF7F', element_justification='center', vertical_alignment='center', border_width=None, pad=(0,0)),
+      title='high',
+      size=(125,100),
+      title_color='#000000',
+      background_color='#FFFF7F',
+      element_justification='center',
+      vertical_alignment='center',
+      border_width=None,
+      pad=(0,0)
+    ),
   ],
 ]
 
@@ -382,7 +413,10 @@ timeColumn = sg.Column(
   ], 
   size=(450, 200), 
   pad=(0,0), 
-  background_color='#0000FF'
+  background_color='#0000FF',
+  vertical_alignment='center',
+  element_justification='center',
+  justification='center'
 )
 
 amPMColumn = sg.Column(
