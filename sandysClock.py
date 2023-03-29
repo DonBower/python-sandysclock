@@ -39,7 +39,12 @@ WEATHERKIT_KID          = "LBV5W26ZRJ"  # key ID
 WEATHERKIT_FULL_ID      = f"{WEATHERKIT_TEAM_ID}.{WEATHERKIT_SERVICE_ID}"
 awnAPI                  = AmbientAPI()
 awnDevices              = awnAPI.get_devices()
-AWN_DEVICE              = awnDevices[0]
+try:
+  AWN_DEVICE            = awnDevices[0]
+except:
+  print('Could not get AWN Devices')
+  print(awnDevices)
+  exit()
 TEMP_AS_F               = 'ºF'
 TEMP_AS_C               = 'ºC'
 TEMP_AS_DEFAULT         = TEMP_AS_F
