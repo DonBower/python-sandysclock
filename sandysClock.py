@@ -18,7 +18,7 @@ DEBUG                   = 0
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
-DIM_HOUR_NIGHT          = 20
+DIM_HOUR_NIGHT          = 15
 DIM_HOUR_DAY            = 7
 DIM_BRIGHTNESS_NIGHT    = 31
 DIM_BRIGHTNESS_DAY      = 255
@@ -507,12 +507,12 @@ def setBrightness(thisSetting):
 while True:             # Event Loop
   rightNow          = getRightNow()
   thisHour          = int(rightNow.strftime('%H'))
-  if thisHour > DIM_HOUR_NIGHT:
+  if thisHour >= DIM_HOUR_NIGHT:
     if currentBrightness != DIM_BRIGHTNESS_NIGHT:
       setBrightness(DIM_BRIGHTNESS_NIGHT)
       currentBrightness = DIM_BRIGHTNESS_NIGHT
   else:
-    if thisHour > DIM_HOUR_DAY:
+    if thisHour >= DIM_HOUR_DAY:
       if currentBrightness != DIM_BRIGHTNESS_DAY:
         setBrightness(DIM_BRIGHTNESS_DAY)
         currentBrightness = DIM_BRIGHTNESS_DAY
