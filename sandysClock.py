@@ -3,6 +3,7 @@ import json
 import time
 import jwt
 import requests
+import os.path
 
 import PySimpleGUI as sg
 from datetime import datetime
@@ -17,6 +18,11 @@ DEBUG                   = 0
 USER_HOME_PATH          = str(Path('~').expanduser())
 TZ_ZULU                 = tz.gettz('UTC')
 TZ_LOCAL                = tz.gettz('America/Los_Angeles')
+DIM_HOUR_NIGHT          = 20
+DIM_HOUR_DAY            = 7
+DIM_BRIGHTNESS_NIGHT    = 31
+DIM_BRIGHTNESS_DAY      = 255
+DIM_BRIGHTNESS_FILE     = '/sys/devices/platform/soc/3f205000.i2c/i2c-11/i2c-10/10-0045/backlight/10-0045/brightness'
 CLOCK_FONT_TIME_SIZE    = 192
 CLOCK_FONT_TIME_NAME    = 'Digital-7 Mono'
 CLOCK_FONT_TIME_SIZE    = 128
@@ -300,6 +306,7 @@ wxInfo                = {}
 wxKitForecastTime     = datetime.fromtimestamp(lastEpoch)
 wxKitForecastTime     = wxKitForecastTime.astimezone(TZ_LOCAL)
 wxInfo                = getCurrentWx(AWN_DEVICE)
+currentBrightness     = DIM_BRIGHTNESS_DAY
 
 sg.LOOK_AND_FEEL_TABLE['Dashboard'] = theme_dict
 sg.theme('Dashboard')
@@ -491,9 +498,25 @@ window = sg.Window(
   grab_anywhere=False
 )
 
+def setBrightness(thisSetting):
+  if os.path.exists(DIM_BRIGHTNESS_FILE):
+    with open(DIM_BRIGHTNESS_FILE, 'w') as f:
+      f.write(thisSetting)
+
 
 while True:             # Event Loop
   rightNow          = getRightNow()
+  thisHour          = rightNow.strftime('%H')
+  if thisHour > DIM_HOUR_NIGHT:
+    if currentBrightness != DIM_BRIGHTNESS_NIGHT:
+      setBrightness(DIM_BRIGHTNESS_NIGHT)
+      currentBrightness = DIM_BRIGHTNESS_NIGHT
+  else:
+    if thisHour > DIM_HOUR_DAY:
+      if currentBrightness != DIM_BRIGHTNESS_DAY:
+        setBrightness(DIM_BRIGHTNESS_DAY)
+        currentBrightness = DIM_BRIGHTNESS_DAY
+
   wxInfo            = getCurrentWx(AWN_DEVICE)
 #
 # Sync clock to exact second
