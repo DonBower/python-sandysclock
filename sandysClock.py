@@ -506,7 +506,7 @@ def setBrightness(thisSetting):
 
 while True:             # Event Loop
   rightNow          = getRightNow()
-  thisHour          = rightNow.strftime('%H')
+  thisHour          = int(rightNow.strftime('%H'))
   if thisHour > DIM_HOUR_NIGHT:
     if currentBrightness != DIM_BRIGHTNESS_NIGHT:
       setBrightness(DIM_BRIGHTNESS_NIGHT)
